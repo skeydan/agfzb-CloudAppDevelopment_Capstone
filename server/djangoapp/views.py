@@ -102,7 +102,7 @@ def registration_request(request):
 def get_dealerships(request):
     if request.method == "GET":
         context = {} #Create an empty dictionary named context
-        url = "https://zkajdan-3000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        url = "https://zkajdan-3000.theiadocker-2-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get/dealerships/get"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         context['dealerships'] = dealerships #Assign the list of dealerships to the dealerships key in the context dictionary.
