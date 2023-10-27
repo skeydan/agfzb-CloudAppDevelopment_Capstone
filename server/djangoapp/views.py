@@ -88,17 +88,29 @@ def registration_request(request):
 
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
+# Update the `get_dealerships` view to render the index page with a list of dealerships
+#def get_dealerships(request):
+#    if request.method == "GET":
+#        url = "https://zkajdan-3000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/dealer-get"
+#        # Get dealers from the URL
+#        dealerships = get_dealers_from_cf(url)
+#        # Concat all dealer's short name
+#        dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
+#        # Return a list of dealer short name
+#        return HttpResponse(dealer_names)
+
 def get_dealerships(request):
     if request.method == "GET":
-        # replace with CURRENT service url on port 3000!
-        # e.g. https://USERID-3000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/dealer-get"
-        url = "your-cloud-function-domain/dealerships/dealer-get"
+        context = {} #Create an empty dictionary named context
+        url = "https://zkajdan-3000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/dealer-get"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
+        context['dealerships'] = dealerships #Assign the list of dealerships to the dealerships key in the context dictionary.
         # Concat all dealer's short name
         dealer_names = ' '.join([dealer.short_name for dealer in dealerships])
         # Return a list of dealer short name
-        return HttpResponse(dealer_names)
+        return render(request, 'djangoapp/index.html', context) #Return the rendered HTML template.
+
 
 
 
@@ -107,18 +119,16 @@ def get_dealerships(request):
 def get_dealer_details(request, id):
     if request.method == "GET":
         context = {}
-        dealer_url = "https://USERNAME-8000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealership-package/get-dealership"
+        dealer_url = "https://zkajdan-8000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealership-package/get-dealership"
         dealer = get_dealers_from_cf(dealer_url, id=id)
         context["dealer"] = dealer
                       
-        review_url = "https://USERNAME-8000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealership-package/get-review"
+        review_url = "https://zkajdan-8000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealership-package/get-review"
         reviews = get_dealer_reviews_from_cf(review_url, id=id)
         print(reviews)
         context["reviews"] = reviews
         
         return render(request, 'djangoapp/dealer_details.html', context)
-
-
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
 # ...
