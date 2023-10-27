@@ -89,8 +89,9 @@ def registration_request(request):
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 def get_dealerships(request):
-   def get_dealerships(request):
     if request.method == "GET":
+        # replace with CURRENT service url on port 3000!
+        # e.g. https://USERID-3000.theiadocker-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/dealer-get"
         url = "your-cloud-function-domain/dealerships/dealer-get"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
