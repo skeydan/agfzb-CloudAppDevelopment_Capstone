@@ -37,6 +37,7 @@ def get_reviews():
 
     # Execute the query using the query method
     result = db.get_query_result(selector)
+    print(result)
 
     # Create a list to store the documents
     data_list = []
