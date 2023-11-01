@@ -103,7 +103,7 @@ def get_dealerships(request):
 # Create a `get_dealer_details` view to render the reviews of a dealer
 def get_dealer_details(request, id):
     if request.method == "GET":
-        review_url = "https://zkajdan-5000.theiadocker-3-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_review"
+        review_url = "https://zkajdan-5000.theiadocker-3-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews"
         reviews = get_dealer_reviews_from_cf(review_url, id=id)
         print(reviews)
         reviews_json = json.dumps(reviews)        
