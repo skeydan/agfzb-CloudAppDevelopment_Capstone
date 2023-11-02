@@ -6,17 +6,29 @@ from requests.auth import HTTPBasicAuth
 def get_request(url, **kwargs):
     print(kwargs)
     print("GET from {} ".format(url))
+    apikey = kwargs.get("apikey")
     try:
-        # Call get method of requests library with URL and parameters
-        response = requests.get(url, headers={'Content-Type': 'application/json'},
-                                    params=kwargs)
-    except:
-        # If any error occurs
-        print("Network exception occurred")
-    status_code = response.status_code
-    print("With status {} ".format(status_code))
-    json_data = json.loads(response.text)
-    return json_data
+        if apikey:
+            params = dict()
+            params["text"] = kwargs.get("text")
+            params["version"] = kwargs.get("version")
+            params["features"] = kwargs.get("features")
+            params["return_analyzed_text"] = kwargs.get("return_analyzed_text")
+            
+            response = requests.get(url, data=params, auth=HTTPBasicAuth('apikey', apikey), headers={'Content-Type': 'application/json'})
+        else:
+            # Call get method of requests library with URL and parameters
+            response = requests.get(url, headers={'Content-Type': 'application/json'}, params=kwargs)
+        
+        # Check if the response contains valid JSON
+        response.raise_for_status()  # This will raise an exception if the response status code is an HTTP error.
+        json_data = response.json()
+        return json_data
+    except Exception as e:
+        # Handle the exception and log or print an error message
+        print(f"Error in get_request: {e}")
+        return None
+
 
 def get_dealers_from_cf(url, **kwargs):
     results = []
