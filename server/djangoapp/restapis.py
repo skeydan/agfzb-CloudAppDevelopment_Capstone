@@ -50,10 +50,10 @@ def get_dealers_from_cf(url, **kwargs):
     print("############################################")
     return results
 
-def get_dealer_by_id_from_cf(url, dealer_id, **kwargs):
+def get_dealer_by_id_from_cf(url, id, **kwargs):
     result = {}
     # Call get_request with a URL parameter
-    json_result = get_request(url, id=dealer_id)
+    json_result = get_request(url, id=id)
     if json_result:
         # Get the row list in JSON as dealers
         dealers = json_result  
