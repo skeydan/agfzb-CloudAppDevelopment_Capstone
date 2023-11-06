@@ -28,7 +28,7 @@ class CarMake(models.Model):
 # - Any other fields you would like to include in car model
 # - __str__ method to print a car make object
 class CarModel(models.Model):
-    id = models.IntegerField(default=1,primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(null=False, max_length=100, default='Car')
    
     SEDAN = 'Sedan'
@@ -83,9 +83,25 @@ class CarDealer:
 
 # <HINT> Create a plain Python class `DealerReview` to hold review data
 class DealerReview:
-
     def __init__(self, dealership, name, purchase, review, purchase_date, car_make, car_model, car_year, sentiment, id):
-        
+        self.dealership  = dealership #Id of dealership
+        self.name = name #name of reviewer
+        self.purchase = purchase #if they purchased
+        self.review = review #text of review
+        self.purchase_date = purchase_date #the purchase date
+        self.car_make = car_make #car make
+        self.car_model = car_model #car model
+        self.car_year = car_year #car year
+        self.sentiment = sentiment #sentiment of the review
+        self.id = id #id of the review
+
+    def __str__(self):
+        return "Reviewer Name: " + self.name + \
+            "Review: " + self.review
+
+class ReviewPost:
+
+    def __init__(self, dealership, name, purchase, review):
         self.dealership = dealership
         self.name = name
         self.purchase = purchase
@@ -94,13 +110,7 @@ class DealerReview:
         self.car_make = ""
         self.car_model = ""
         self.car_year = ""
-        self.sentiment = ""
-        self.id = ""
-
-    def __str__(self):
-        return "Reviews: " + self.review 
 
     def to_json(self):
         return json.dumps(self, default=lambda o: o.__dict__,
                             sort_keys=True, indent=4)
-
