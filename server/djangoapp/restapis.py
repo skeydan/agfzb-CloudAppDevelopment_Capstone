@@ -29,6 +29,16 @@ def get_request(url, **kwargs):
         print(f"Error in get_request: {e}")
         return None
 
+def post_request(url, json_payload, **kwargs):
+    print(kwargs)
+    print("POST to {} ".format(url))
+    print(json_payload)
+    response = requests.post(url, params=kwargs, json=json_payload)
+    status_code = response.status_code
+    print("With status {} ".format(status_code))
+    json_data = json.loads(response.text)
+    print(json_data)
+    return response
 
 def get_dealers_from_cf(url, **kwargs):
     results = []
