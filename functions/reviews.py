@@ -56,7 +56,7 @@ def post_review():
         abort(400, description='Invalid JSON data')
     
     # Extract review data from the request JSON
-    review_data = request.json
+    review_data = request.json['review']
     print(review_data)
 
     # Validate that the required fields are present in the review data
