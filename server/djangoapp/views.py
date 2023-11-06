@@ -148,9 +148,7 @@ def add_review(request, id):
             payload["car_make"] = car.make.name
             payload["car_model"] = car.name
             payload["car_year"] = int(car.year.strftime("%Y"))
-            required_fields = ['id', 'name', 'dealership', 'review', 'purchase', 'purchase_date', 'car_make', 'car_model', 'car_year']
-    
-
+            
             new_payload = {}
             new_payload["review"] = payload
             review_post_url = "https://zkajdan-5000.theiadocker-2-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/post_review"
